@@ -21,35 +21,33 @@ export default function Home() {
       <DocsBody>
         <Image src={image} alt="Site banner" />
         <p>
-          I am <Link href="https://github.com/joulev">@joulev</Link>, a Next.js user, an active
-          helper and moderator on the{" "}
-          <Link href="https://discord.gg/nextjs">official Next.js server</Link>.
+          Welcome to Allmightynote—a UI component collection. I’m{" "}
+          <Link href="https://x.com/BroKariim">@BroKariim</Link> , your friendly neighborhood code
+          bro!
         </p>
         <p>
-          This website is a collection of the answers that some active server members and I have for
-          some of the most commonly asked questions on the server. I found myself answering these
-          questions over and over again so I decided why not make something so I can simply answer
-          with a URL instead.
+          This website is a culmination of my journey as a web developer, serving as a centralized
+          resource to share the UI components I've built and the valuable lessons I've learned along
+          the way.
         </p>
         <p>
-          The answers here are <strong>not affiliated with Vercel or the Next.js team</strong>.
-          Since Next.js is evolving very fast, these answers might get outdated quickly. I try my
-          best to keep them up to date but that is not always possible. If you find any errors or
-          would like to make improvements, feel free to{" "}
-          <Link href={`${REPO}/issues`}>open an issue</Link> or{" "}
-          <Link href={`${REPO}/pulls`}>make a pull request</Link>.
+          As a passionate designer and coder, I've dedicated countless hours to crafting a diverse
+          collection of high-quality, customizable UI components. From sleek buttons and intuitive
+          forms to dynamic data visualizations, each component has been meticulously designed and
+          thoroughly tested to ensure a seamless user experience.
         </p>
         <p>
-          The content of the posts here are the opinions of the respective authors – and I am in
-          agreement with those opinions. Everything else is solely my own personal opinion.
+          But this website is more than just a showcase of my work—
+          <strong>
+            it’s a heartfelt thank you to all the open-source projects out there, from which I’ve
+            learned so much
+          </strong>
+          . Feel free to explore the UI components, dive into the insightful notes, and make use of
+          anything here to enhance your own websites and applications. This is for all of us, so
+          let’s keep building and learning together
         </p>
         <p>
-          <Link href={REPO}>The content and all source code of this app</Link> are placed under{" "}
-          <Link href="http://wiki.creativecommons.org/CC0">CC0</Link>. Attribution, though not
-          required, is appreciated.
-        </p>
-        <p>
-          Built with <Link href="https://github.com/fuma-nama/fumadocs">Fumadocs</Link>.
+          Crafted with ❤️ and gratitude <br />— BroKarim
         </p>
       </DocsBody>
     </DocsPage>
@@ -57,5 +55,5 @@ export default function Home() {
 }
 
 export const metadata: Metadata = {
-  title: "FAQ for the Next.js Discord server",
+  title: "All mighty note",
 };

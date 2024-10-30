@@ -20,16 +20,10 @@ export const pageTree: PageTree.Root = {
   name: "Docs",
   children: [
     { type: "page", name: "About this site", url: "/" },
-    { type: "separator", name: "Discord-specific" },
-    { type: "page", name: "Non-Next.js Questions", url: "/non-nextjs-questions" },
-    { type: "page", name: "About the removal of #general", url: "/on-general-being-removed" },
-    { type: "page", name: "How to ask a good question", url: "/good-question" },
-    {
-      type: "page",
-      name: "How to create a minimal reproduction repository",
-      url: "/minimal-reproduction-repository",
-    },
-    { type: "separator", name: "Questions" },
+    { type: "separator", name: "Components" },
+    { type: "page", name: "Showcase", url: "/non-nextjs-questions" },
+
+    { type: "separator", name: "Components" },
     ...originalTree.children.filter(node => node.type !== "page" || !offTopic.includes(node.url)),
     // .sort((a, b) => a.name.localeCompare(b.name)),
   ],

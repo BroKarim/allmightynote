@@ -1,7 +1,16 @@
 import { getPage, getPages } from "@/app/source";
+import { type ComponentProps, type FC, Fragment, type ReactElement, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { DocsPage, DocsBody } from "fumadocs-ui/page";
 import defaultMdxComponents from "fumadocs-ui/mdx";
+import defaultComponents from "fumadocs-ui/mdx";
+// import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Wrapper } from "@/components/preview/wrapper";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
+import { Step, Steps } from "fumadocs-ui/components/steps";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PenLine } from "lucide-react";
@@ -36,8 +45,8 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         style: "clerk",
         header: (
           <div className="flex flex-col gap-6 mb-6">
-            <NotVercel />
-            <div className="grid grid-cols-3 text-sm gap-y-4 text-muted-foreground">
+            {/* <NotVercel /> */}
+            {/* <div className="grid grid-cols-3 text-sm gap-y-4 text-muted-foreground">
               <div>Updated:</div>
               <time dateTime={updatedISO} title={updatedISO} className="col-span-2 text-foreground">
                 {updatedHuman}
@@ -58,7 +67,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                   </Link>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         ),
         footer: (
@@ -87,7 +96,20 @@ export default function Page({ params }: { params: { slug: string[] } }) {
             <CopyButton className="hover:text-foreground transition-colors" />
           </div>
         </div>
-        <MDX components={defaultMdxComponents} />
+        <MDX
+          components={{
+            ...defaultComponents,
+            Tabs,
+            Tab,
+            Step,
+            Steps,
+            TypeTable,
+            Accordion,
+            Accordions,
+            Wrapper,
+            blockquote: Callout as unknown as FC<ComponentProps<"blockquote">>,
+          }}
+        />
       </DocsBody>
     </DocsPage>
   );
