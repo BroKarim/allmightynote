@@ -11,19 +11,17 @@ export const {
 } = loader({ source: createMDXSource(docs, meta) });
 
 const offTopic = [
-  "/non-nextjs-questions",
-  "/on-general-being-removed",
-  "/good-question",
-  "/minimal-reproduction-repository",
+  "/showcase",
+  
 ];
 export const pageTree: PageTree.Root = {
   name: "Docs",
   children: [
     { type: "page", name: "About this site", url: "/" },
-    { type: "separator", name: "Components" },
-    { type: "page", name: "Showcase", url: "/non-nextjs-questions" },
+    // { type: "separator", name: "Components" },
+    { type: "page", name: "Showcase", url: "/showcase" },
 
-    { type: "separator", name: "Components" },
+    { type: "separator", name: "Cool Repo" },
     ...originalTree.children.filter(node => node.type !== "page" || !offTopic.includes(node.url)),
     // .sort((a, b) => a.name.localeCompare(b.name)),
   ],

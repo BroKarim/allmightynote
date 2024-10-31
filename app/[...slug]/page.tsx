@@ -46,7 +46,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         header: (
           <div className="flex flex-col gap-6 mb-6">
             {/* <NotVercel /> */}
-            {/* <div className="grid grid-cols-3 text-sm gap-y-4 text-muted-foreground">
+            <div className="grid grid-cols-3 text-sm gap-y-4 text-muted-foreground">
               <div>Updated:</div>
               <time dateTime={updatedISO} title={updatedISO} className="col-span-2 text-foreground">
                 {updatedHuman}
@@ -67,7 +67,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                   </Link>
                 ))}
               </div>
-            </div> */}
+            </div>
           </div>
         ),
         footer: (
