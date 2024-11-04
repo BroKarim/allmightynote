@@ -19,7 +19,7 @@ export default function Home() {
       }}
     >
       <DocsBody>
-        <Image src={image} alt="Site banner" />
+        {/* <Image src={image} alt="Site banner" /> */}
         <p>
           Welcome to Allmightynote—a UI component collection. I’m{" "}
           <Link href="https://x.com/BroKariim">@BroKariim</Link> , your friendly neighborhood code

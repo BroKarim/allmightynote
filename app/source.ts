@@ -10,10 +10,7 @@ export const {
   pageTree: originalTree,
 } = loader({ source: createMDXSource(docs, meta) });
 
-const offTopic = [
-  "/showcase",
-  
-];
+const offTopic = ["/showcase"];
 export const pageTree: PageTree.Root = {
   name: "Docs",
   children: [
@@ -21,7 +18,7 @@ export const pageTree: PageTree.Root = {
     // { type: "separator", name: "Components" },
     { type: "page", name: "Showcase", url: "/showcase" },
 
-    { type: "separator", name: "Cool Repo" },
+    { type: "separator", name: "Content" },
     ...originalTree.children.filter(node => node.type !== "page" || !offTopic.includes(node.url)),
     // .sort((a, b) => a.name.localeCompare(b.name)),
   ],
