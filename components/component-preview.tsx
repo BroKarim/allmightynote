@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-// import { Index } from "__registry__";
 import { RotateCcw } from "lucide-react";
 
 import { useConfig } from "@/lib/use-config";
@@ -10,19 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ComponentWrapper from "./component-wrapper";
 import { Icons } from "@/components/icons";
-import { styles } from "@/lib/base-style";
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   Component: React.ComponentType; // Any component passed here can be rendered
-  Code: string; // Code to display in the Code tab
   align?: "center" | "start" | "end";
   preview?: boolean;
 }
 
 export function ComponentPreview({
   Component,
-  Code,
   children,
   className,
   align = "center",
@@ -31,29 +27,6 @@ export function ComponentPreview({
 }: ComponentPreviewProps) {
   const [key, setKey] = React.useState(0);
   const [config] = useConfig();
-  const index = styles.findIndex(style => style.name === config.style);
-
-  const Codes = React.Children.toArray(children) as React.ReactElement[];
-  //   const Code = Codes[index];
-
-  //   const Preview = React.useMemo(() => {
-  //     const Component = Index[config.style][name]?.component;
-
-  //     if (!Component) {
-  //       console.error(`Component with name "${name}" not found in registry.`);
-  //       return (
-  //         <p className="text-sm text-muted-foreground">
-  //           Component{" "}
-  //           <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
-  //             {name}
-  //           </code>{" "}
-  //           not found in registry.
-  //         </p>
-  //       );
-  //     }
-
-  //     return <Component />;
-  //   }, [name, config.style]);
 
   return (
     <div
@@ -69,12 +42,6 @@ export function ComponentPreview({
                 className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
               >
                 Preview
-              </TabsTrigger>
-              <TabsTrigger
-                value="code"
-                className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-              >
-                Code
               </TabsTrigger>
             </TabsList>
           </div>
@@ -100,14 +67,7 @@ export function ComponentPreview({
             </React.Suspense>
           </ComponentWrapper>
         </TabsContent>
-        <TabsContent value="code">
-          <div className="flex flex-col space-y-4">
-            <div className="w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">
-              {Code}
-            </div>
-          </div>
-        </TabsContent>
-      </Tabs>
+        </Tabs>
     </div>
   );
 }
