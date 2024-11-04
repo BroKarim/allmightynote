@@ -3,7 +3,7 @@
 import * as React from "react";
 import { RotateCcw } from "lucide-react";
 
-import { useConfig } from "@/lib/use-config";
+// import { useConfig } from "@/lib/use-config";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,7 +26,7 @@ export function ComponentPreview({
   ...props
 }: ComponentPreviewProps) {
   const [key, setKey] = React.useState(0);
-  const [config] = useConfig();
+//   const [config] = useConfig();
 
   return (
     <div
