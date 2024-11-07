@@ -1,0 +1,101 @@
+---
+updated: 2024-11-7
+title: media chrome
+authors: [BroKarim]
+---
+
+import { ComponentPreview } from "../components/component-preview.tsx";
+import { MediaChrome } from "../components/example/media-chrome.tsx";
+
+## Input Otp
+
+<ComponentPreview Component={MediaChrome} />
+Media Chrome is a flexible collection of customizable media player controls and components. With Media Chrome, you can build your own media player UI from scratch, while keeping the underlying playback engine separate. This design allows you to swap out the playback engine without needing to alter the UI, giving you full control over the look and functionality of your media player.
+
+### Key Features
+
+- **Customizable Components**: Add components like seek, back/forward buttons, playback rate controls, full-screen mode, and even thumbnails before video play.
+- **Wide Media Support**: Compatible with various media sources, including Cloudflare HLS, Shaka, Spotify, YouTube, and many more.
+- **Build Flexibility**: Allows you to focus on UI design without worrying about media playback, making it perfect for integrating with different media engines.
+
+
+With this component, you can build a feature-rich and visually appealing OTP input interface for your React applications, with the ability to tailor the appearance and behavior to match your specific design and user experience requirements.
+
+<Steps>
+<Step>
+ 
+### Installation
+
+To get started with Media Chrome, install it with npm:
+
+```bash
+npm install media-chrome --save
+```
+
+</Step>
+ 
+<Step>
+ 
+### Copy paste this `demo.tsx` 
+
+```tsx
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  MediaController,
+  MediaControlBar,
+  MediaTimeRange,
+  MediaTimeDisplay,
+  MediaVolumeRange,
+  MediaPlayButton,
+  MediaSeekBackwardButton,
+  MediaSeekForwardButton,
+  MediaMuteButton,
+  MediaPosterImage,
+  MediaPlaybackRateButton,
+  MediaPipButton,
+  MediaFullscreenButton,
+} from "media-chrome/react";
+
+const MediaCrome = () => {
+  return (
+    <MediaController className="w-[640px] relative rounded-lg border-2 border-black ">
+        <div className="flex w-full items-center justify-start gap-2 absolute top-4 left-6">
+          <Avatar>
+            <AvatarImage src="https://github.com/BroKarim.png" />
+            <AvatarFallback>Kris Tyson</AvatarFallback>
+          </Avatar>
+          <h2 className="text-white font-mono">PROOF THE EARTH IS TRIANGLE</h2>
+          {/* <MediaTextDisplay className=" bg-none" background="yellow" slot="top-chrome">
+            Tess
+          </MediaTextDisplay> */}
+        </div>
+        <video slot="media" src="https://videos.pexels.com/video-files/2695085/2695085-hd_1920_1080_30fps.mp4" preload="auto" muted crossOrigin="" />
+        <MediaPosterImage
+          slot="poster"
+          className="w-full h-full object-fit"
+          src="https://images.unsplash.com/photo-1498066534384-8b6a352543b0?q=80&w=3082&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ></MediaPosterImage>
+        <MediaControlBar>
+          <MediaPlayButton></MediaPlayButton>
+          <MediaSeekBackwardButton></MediaSeekBackwardButton>
+          <MediaSeekForwardButton></MediaSeekForwardButton>
+          <MediaTimeRange></MediaTimeRange>
+          <MediaTimeDisplay showDuration></MediaTimeDisplay>
+          <MediaMuteButton></MediaMuteButton>
+          <MediaPlaybackRateButton></MediaPlaybackRateButton>
+          <MediaPipButton></MediaPipButton>
+          <MediaFullscreenButton></MediaFullscreenButton>
+          <MediaVolumeRange></MediaVolumeRange>
+        </MediaControlBar>
+      </MediaController>
+  );
+};
+
+export default MediaCrome;
+```
+
+</Step>
+
+</Steps>
+
+
