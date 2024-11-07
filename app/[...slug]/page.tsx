@@ -72,13 +72,6 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         ),
         footer: (
           <div className="flex flex-col gap-2 justify-start text-sm text-muted-foreground mt-6">
-            <Link
-              className="hover:text-foreground transition-colors"
-              href={`https://github.com/joulev/nextjs-faq/blob/main/content${page.url}.mdx`}
-            >
-              <PenLine className="inline size-4 mr-2" />
-              Edit this page
-            </Link>
             <div>
               <CopyButton className="hover:text-foreground transition-colors" />
             </div>
