@@ -4,6 +4,10 @@ import { docs, meta, notesDocs, notesMeta } from "@/.source";
 import { createMDXSource } from "fumadocs-mdx";
 import { loader } from "fumadocs-core/source";
 
+/* NOTE :
+ * The main configuration for separators and content sources is handled in `source.config.ts`.
+ * This file defines where content is sourced from and how it's organized in the sidebar.
+ * */
 export const {
   getPage,
   getPages,
