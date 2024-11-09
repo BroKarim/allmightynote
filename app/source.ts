@@ -15,8 +15,6 @@ export const pageTree: PageTree.Root = {
   name: "Docs",
   children: [
     { type: "page", name: "About this site", url: "/" },
-    // { type: "separator", name: "Components" },
-    { type: "page", name: "Showcase", url: "/showcase" },
 
     { type: "separator", name: "UI Collections" },
     ...originalTree.children.filter(node => node.type !== "page" || !offTopic.includes(node.url)),
