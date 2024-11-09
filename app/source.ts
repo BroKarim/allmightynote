@@ -1,6 +1,6 @@
 import { PageTree } from "fumadocs-core/server";
 
-import { docs, meta } from "@/.source";
+import { docs, meta, notesDocs, notesMeta } from "@/.source";
 import { createMDXSource } from "fumadocs-mdx";
 import { loader } from "fumadocs-core/source";
 
@@ -10,6 +10,23 @@ export const {
   pageTree: originalTree,
 } = loader({ source: createMDXSource(docs, meta) });
 
+// export const {
+//   getPage,
+//   getPages,
+//   pageTree: notesLoader,
+// } = loader({ source: createMDXSource(notesDocs, notesMeta) });
+
+const notesLoader = loader({
+  source: createMDXSource(notesDocs, notesMeta),
+});
+
+// Notes loader dengan exports yang diperlukan
+// export const {
+//   getPage: getNotesPage,
+//   getPages: getNotesPages,
+//   pageTree: notesTree
+// } = loader({ source: createMDXSource(notesDocs, notesMeta) });
+
 const offTopic = ["/showcase"];
 export const pageTree: PageTree.Root = {
   name: "Docs",
@@ -18,8 +35,14 @@ export const pageTree: PageTree.Root = {
     // { type: "separator", name: "Components" },
     { type: "page", name: "Showcase", url: "/showcase" },
 
-    { type: "separator", name: "Content" },
+    { type: "separator", name: "UI Collection" },
     ...originalTree.children.filter(node => node.type !== "page" || !offTopic.includes(node.url)),
     // .sort((a, b) => a.name.localeCompare(b.name)),
+
+    // Notes Collection
+    { type: "separator", name: "Notes Collection" },
+    ...notesLoader.pageTree.children,
+    // ...notesTree.children,
+    // ...notesLoader.pageTree.children.filter(node => node.type !== "page"),
   ],
 };
