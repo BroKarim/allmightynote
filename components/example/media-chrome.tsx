@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReloadWrapper } from "../reload-wrapper";
 import {
@@ -17,10 +17,8 @@ import {
   MediaFullscreenButton,
 } from "media-chrome/react";
 
-export function MediaChrome () {
+export function MediaChrome() {
   return (
-    // <ReloadWrapper className="p-4 flex justify-center rounded-lg">
-    // </ReloadWrapper>
     <MediaController className="w-[640px] relative rounded-lg border-2 border-black ">
       <div className="flex w-full items-center justify-start gap-2 absolute top-4 left-6">
         <Avatar>
@@ -58,6 +56,4 @@ export function MediaChrome () {
       </MediaControlBar>
     </MediaController>
   );
-};
-
-
+}

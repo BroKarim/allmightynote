@@ -18,7 +18,7 @@ export const pageTree: PageTree.Root = {
     // { type: "separator", name: "Components" },
     { type: "page", name: "Showcase", url: "/showcase" },
 
-    { type: "separator", name: "Content" },
+    { type: "separator", name: "UI Collections" },
     ...originalTree.children.filter(node => node.type !== "page" || !offTopic.includes(node.url)),
     // .sort((a, b) => a.name.localeCompare(b.name)),
   ],

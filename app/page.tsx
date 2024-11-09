@@ -3,7 +3,7 @@ import { DocsPage, DocsBody } from "fumadocs-ui/page";
 import Link from "next/link";
 import Image from "next/image";
 import { NotVercel } from "@/components/not-vercel";
-import image from "./opengraph-image.png";
+import image from "./banner.png";
 
 const REPO = "https://github.com/joulev/nextjs-faq";
 
@@ -19,11 +19,10 @@ export default function Home() {
       }}
     >
       <DocsBody>
-        {/* <Image src={image} alt="Site banner" /> */}
+        <Image src={image} alt="Site banner" />
         <p>
-          Welcome to Allmightynote—a UI component collection. I’m{" "}
-          <Link href="https://x.com/BroKariim">@BroKariim</Link> , your friendly neighborhood code
-          bro!
+          Welcome to `just-demo`. I’m <Link href="https://x.com/BroKariim">@BroKariim</Link> , your
+          friendly neighborhood code bro!
         </p>
         <p>
           This website is a culmination of my journey as a web developer, serving as a centralized

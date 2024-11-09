@@ -1,14 +1,11 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import { Copy, Check } from "lucide-react";
-// import { ReloadWrapper } from "../reload-wrapper";
 
 export function MacTerminal() {
   return (
     <>
       <Terminal />
-      {/* <ReloadWrapper className="py-6  md:max-w-4xl flex items-center justify-center">
-      </ReloadWrapper> */}
     </>
   );
 }

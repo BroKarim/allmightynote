@@ -11,7 +11,7 @@ const font = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-sans" });
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={font.variable} suppressHydrationWarning>
+    <html lang="en" className="font-mono" suppressHydrationWarning>
       <body>
         <Banner className="border-b border-border">Ceasefire now! 🕊️🇵🇸</Banner>
         <RootProvider>
