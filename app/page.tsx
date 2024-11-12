@@ -5,7 +5,7 @@ import Image from "next/image";
 import { NotVercel } from "@/components/not-vercel";
 import image from "./banner.png";
 
-const REPO = "https://github.com/joulev/nextjs-faq";
+const REPO = "https://justdemo.vercel.app/";
 
 export default function Home() {
   return (
@@ -54,5 +54,5 @@ export default function Home() {
 }
 
 export const metadata: Metadata = {
-  title: "All mighty note",
+  title: "Just Demo",
 };

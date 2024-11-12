@@ -23,5 +23,5 @@ export default function Layout({ children }: { children: ReactNode }) {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nextjs-faq.com"),
+  metadataBase: new URL("https://justdemo.vercel.app/"),
 };

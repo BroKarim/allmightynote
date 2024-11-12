@@ -31,7 +31,7 @@ export const baseOptions = {
   links: [
     {
       text: "Source code",
-      url: "https://github.com/BroKarim/allmightynote",
+      url: "https://github.com/BroKarim/just-demo",
       icon: <GitHub className="size-5" />,
       external: true,
     },
