@@ -13,7 +13,7 @@ export default function Home() {
       tableOfContent={{
         header: (
           <div className="flex flex-col gap-6 mb-6">
-            <NotVercel />
+            {/* <NotVercel /> */}
           </div>
         ),
       }}
