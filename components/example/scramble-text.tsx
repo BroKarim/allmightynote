@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
@@ -14,18 +14,18 @@ interface AnimatedTextProps {
 export function ScrambleDemo() {
   return (
     <>
-      <Card className="w-full max-w-xl bg-zinc-900 border-zinc-800 overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+      <Card className="w-full max-w-2xl bg-zinc-900 border-zinc-800 overflow-hidden z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 ">
           {/* Image Section */}
-          <div className="relative h-[400px] md:h-full">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />
+          <div className=" h-[400px] md:h-full flex  items-center">
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" /> */}
             <img
               alt="by Matthew Osborn unsplash"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
               src="https://images.unsplash.com/photo-1632850384791-99fda88d324b?q=80&w=2941&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              style={{
-                objectFit: "cover",
-              }}
+              // style={{
+              //   objectFit: "cover",
+              // }}
             />
           </div>
 
