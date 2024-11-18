@@ -1,0 +1,204 @@
+---
+updated: 2024-11-18
+title: popover
+authors: [BroKarim]
+---
+
+import { PopoverDemo } from "../components/example/popover.tsx";
+import { ComponentPreview } from "../components/component-preview.tsx";
+import dynamic from "next/dynamic";
+
+## Demo
+
+<ComponentPreview Component={PopoverDemo} />
+
+The design features an animated text transition effect that mimics encryption or data scrambling, drawing inspiration from Framer's component library. The animation creates a dynamic display by cycling through different words, with each transition appearing as if the text is being encrypted or decoded in real-time
+
+## source code
+
+```js
+import React, { useState, useEffect } from "react";
+
+import { AnimatePresence, motion } from "framer-motion";
+
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { fetchGitHubUser } from "@/api/github-user/route";
+import type { GitHubUser } from "@/types/types";
+
+interface PopoverExampleProps {
+  username: string;
+}
+
+export function PopoverExample({ username }: PopoverExampleProps) {
+  const [userData, setUserData] = useState<GitHubUser | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadUserData = async () => {
+      try {
+        setIsLoading(true);
+        const data = await fetchGitHubUser(username);
+
+        if (isMounted) {
+          setUserData(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error("Error loading user data:", err);
+          setError(err instanceof Error ? err.message : "Failed to load user data");
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadUserData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [username]);
+
+  if (isLoading) {
+    return <div className="animate-pulse rounded-full bg-gray-200 w-[45px] h-[45px]" />;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-sm">Error loading profile</div>;
+  }
+
+  if (!userData) {
+    return null;
+  }
+  return (
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild className="cursor-pointer">
+          <div className="rounded-full">
+            <img className="rounded-full" src={userData?.avatar_url} alt={userData.name} width={60} height={60} />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="bottom" sideOffset={15} className="border-none ">
+          <AnimatePresence>
+            <motion.div
+              className="z-10 w-full max-w-[300px] rounded-lg border dark:border-neutral-800 dark:bg-neutral-950 p-5"
+              initial={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
+              transition={{
+                type: "spring",
+                stiffness: 150,
+                damping: 19,
+                mass: 1.2,
+              }}
+            >
+              <motion.div variants={container} initial="initial" animate="animate" exit="initial" className="flex flex-col gap-[7px]">
+                <motion.div variants={item}>
+                  <img className="rounded-full" src={userData?.avatar_url} alt={userData.name} width={60} height={60} />
+                </motion.div>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <motion.h1 variants={item} className="text-base font-medium dark:text-white">
+                      {userData.name}
+                    </motion.h1>
+                    <motion.p variants={item} className="text-base dark:text-neutral-400">
+                      @{userData?.login}
+                    </motion.p>
+                  </div>
+                  <motion.span variants={item} className="text-base dark:text-neutral-200">
+                    {userData?.bio || "No bio available"}
+                  </motion.span>
+                  <motion.div variants={item} className="flex gap-4">
+                    <div className="flex gap-1.5 dark:text-neutral-300">
+                      <span className="text-base font-medium ">{userData?.following}</span> <span className="text-base ">Following</span>
+                    </div>
+                    <div className="flex gap-1.5 dark:text-neutral-300">
+                      <span className="text-base font-medium">{userData?.followers}</span> <span className="text-base ">Followers</span>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+const container = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  initial: {
+    opacity: 0,
+    y: 16,
+    filter: "blur(4px)",
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      type: "spring",
+      stiffness: 150,
+      damping: 19,
+      mass: 1.2,
+    },
+  },
+};
+
+
+```
+
+## Explanation
+
+This popover serves to display a card, which only appears upon the hover action. Specifically, the popover retrieves and presents data from GitHub based on a fetched username, ensuring that the displayed information is relevant to the user's GitHub profile. 
+
+This component is an enhanced interactive UI element inspired by the original implementation from [luxeui](luxeui.com), with modifications to leverage Tooltip from ShadCN instead of solely relying on  `RadixsPopover`. The component combines an avatar image with a hover-triggered tooltip that acts as a popover to display detailed GitHub user information.
+
+```tsx
+//route.ts
+export interface GitHubUser {
+  name: string;
+  login: string;
+  bio: string | null;
+  followers: number;
+  following: number;
+  avatar_url: string;
+}
+
+export async function fetchGitHubUser(username: string): Promise<GitHubUser> {
+  const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+  const response = await fetch(`https://api.github.com/users/${username}`, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch GitHub user data");
+  }
+  return response.json();
+}
+```
+
+To fetch GitHub user data, I implemented an `fetchGitHubUser` function in `route.ts`, which asynchronously retrieves user details from the GitHub API. 
+
+This function accepts a username parameter and sends a request to the `https://api.github.com/users/{username}` endpoint. To authenticate requests and avoid hitting the GitHub API’s rate limits for unauthenticated calls, I included an Authorization header containing a GitHub Personal Access Token (PAT) stored securely in an environment variable . 
+
+By using this token, the API allows a higher rate limit and access to additional data, ensuring a more reliable and efficient data retrieval process. If the API response is unsuccessful, the function throws an error to handle exceptions gracefully.

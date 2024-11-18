@@ -18,14 +18,10 @@ export function ScrambleDemo() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 ">
           {/* Image Section */}
           <div className=" h-[400px] md:h-full flex  items-center">
-            {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" /> */}
             <img
               alt="by Matthew Osborn unsplash"
               className="w-full h-full object-cover object-center"
               src="https://images.unsplash.com/photo-1632850384791-99fda88d324b?q=80&w=2941&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              // style={{
-              //   objectFit: "cover",
-              // }}
             />
           </div>
 
