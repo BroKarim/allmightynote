@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 
 <ComponentPreview Component={PopoverDemo} />
 
-The design features an animated text transition effect that mimics encryption or data scrambling, drawing inspiration from Framer's component library. The animation creates a dynamic display by cycling through different words, with each transition appearing as if the text is being encrypted or decoded in real-time
+This popover serves to display a card, which only appears upon the hover action. Specifically, the popover retrieves and presents data from GitHub based on a fetched username, ensuring that the displayed information is relevant to the user's GitHub profile. 
 
 ## source code
 
@@ -166,8 +166,6 @@ const item = {
 ```
 
 ## Explanation
-
-This popover serves to display a card, which only appears upon the hover action. Specifically, the popover retrieves and presents data from GitHub based on a fetched username, ensuring that the displayed information is relevant to the user's GitHub profile. 
 
 This component is an enhanced interactive UI element inspired by the original implementation from [luxeui](luxeui.com), with modifications to leverage Tooltip from ShadCN instead of solely relying on  `RadixsPopover`. The component combines an avatar image with a hover-triggered tooltip that acts as a popover to display detailed GitHub user information.
 

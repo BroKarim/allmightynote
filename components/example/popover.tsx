@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { fetchGitHubUser } from "@/app/api/github-data/route";
+// import { fetchGitHubUser } from "@/app/api/github-data/route";
 import type { GitHubUser } from "@/app/type/types";
 
 interface PopoverExampleProps {
@@ -32,7 +32,13 @@ export function PopoverExample({ username }: PopoverExampleProps) {
     const loadUserData = async () => {
       try {
         setIsLoading(true);
-        const data = await fetchGitHubUser(username);
+        const response = await fetch(`/api/github-data?username=${username}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
+        const data = await response.json();
 
         if (isMounted) {
           setUserData(data);
