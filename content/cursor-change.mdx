@@ -1,0 +1,88 @@
+---
+updated: 2024-11-25
+title: cursor change 
+authors: [BroKarim]
+---
+
+import { CursorChange } from "../components/example/cursor-change/index.tsx";
+import { ComponentPreview } from "../components/component-preview.tsx";
+
+
+## Demo
+
+<ComponentPreview Component={CursorChange} />
+
+A Custom animated cursor that replaces the default browser cursor and adds a modern interactive feel to the project. The cursor smoothly follows the mouse movements and dynamically changes its visibility when hovering over specific elements. This is perfect for creating engaging web experiences, like the hover effect on the cassette card shown in the design.
+
+I sourced the code from [motion-primitive](https://motion-primitives.com/docs/cursor), Just check it out and copy it. This custom cursor follows the mouse in real time, incorporating a smooth spring animation for natural movement, and changes visibility based on whether the mouse is hovering over the target element
+
+## How it works
+
+The code hides the default browser cursor and displays a custom animated one using React and Framer Motion. It starts by listening to mouse movements to capture the x and y positions of the pointer. These coordinates are then passed to a spring animation (useSpring) to create a smooth, lagged movement effect, making the cursor glide naturally rather than jumping.
+
+The custom cursor’s visibility is controlled by detecting when the mouse enters or leaves the parent container. When the cursor hovers over a target, the default browser cursor is disabled, and the custom cursor is displayed. If the mouse leaves the area, the default cursor returns, and the custom one is hidden. Framer Motion’s animation features add effects like scaling, fading, or transforming the custom cursor, further enhancing its visual appeal.
+
+In short, this approach combines real-time mouse tracking, smooth animations, and visibility toggling to create a sleek and interactive hover effect tailored to the design.
+
+## source code
+
+```tsx
+
+import { Cursor } from "./cursor";
+import PosterCard from "./poster-card";
+import { SVGProps } from "react";
+
+export function CursorChange() {
+  return (
+    <>
+      <div className="z-10 overflow-hidden ">
+        <Cursor
+          attachToParent
+          variants={{
+            initial: { scale: 0.3, opacity: 0 },
+            animate: { scale: 1, opacity: 1 },
+            exit: { scale: 0.3, opacity: 0 },
+          }}
+          transition={{
+            ease: "easeInOut",
+            duration: 0.15,
+          }}
+          className="left-12 top-4"
+        >
+          <div>
+            <Mouse className="h-6 w-6" />
+            <div className="ml-4 mt-1 rounded-[4px] bg-gray-500 px-2 py-0.5 text-neutral-50">
+              Audio Cassette
+            </div>
+          </div>
+        </Cursor>
+        <PosterCard />
+      </div>
+    </>
+  );
+}
+
+const Mouse = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={26} height={31} {...props}>
+      <g clipPath="url(#a)">
+        <path
+          fill={"#000"}
+          fillRule="evenodd"
+          stroke={"#fff"}
+          strokeLinecap="square"
+          strokeWidth={2}
+          d="M21.993 14.425 2.549 2.935l4.444 23.108 4.653-10.002z"
+          clipRule="evenodd"
+        />
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path fill={"#000"} d="M0 0h26v31H0z" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+```
