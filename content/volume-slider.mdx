@@ -1,0 +1,178 @@
+---
+updated: 2024-11-18
+title: slider volume bar
+authors: [BroKarim]
+---
+
+import { PopoverDemo } from "../components/example/popover.tsx";
+import { ComponentPreview } from "../components/component-preview.tsx";
+import dynamic from "next/dynamic";
+
+## Demo
+
+<ComponentPreview Component={PopoverDemo} />
+
+Slider allows users to adjust a value or control a setting by sliding a handle along a track. It is commonly used to adjust settings such as volume, brightness, or in this case, the width of a box.
+
+## source code
+
+```tsx
+import { Ionicons } from "@expo/vector-icons";
+import { View, Pressable } from "react-native";
+import { Slider } from "react-native-awesome-slider";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+export function SliderVolumeBar() {
+  const scale = useSharedValue(1);
+  const scaleMute = useSharedValue(1);
+  const scaleHigh = useSharedValue(1);
+  const progress = useSharedValue(0);
+  const min = useSharedValue(0);
+  const max = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const animatedStyleMute = useAnimatedStyle(() => ({
+    transform: [{ scale: scaleMute.value }],
+  }));
+
+  const animatedStyleHigh = useAnimatedStyle(() => ({
+    transform: [{ scale: scaleHigh.value }],
+  }));
+
+  const handleValueChange = (value: number) => {
+    progress.value = value;
+
+    if (value === 0) {
+      scaleMute.value = withSpring(1.3);
+    } else {
+      scaleMute.value = withSpring(1);
+    }
+
+    if (value === 1) {
+      scaleHigh.value = withSpring(1.3);
+    } else {
+      scaleHigh.value = withSpring(1);
+    }
+  };
+
+  return (
+    <>
+      <Pressable onPressIn={() => (scale.value = withSpring(1.2))} onPressOut={() => (scale.value = withSpring(1))}>
+        <Animated.View style={[animatedStyle]} className="flex flex-row gap-2 w-full justify-between items-center ">
+          <Animated.View style={animatedStyleMute}>
+            <Ionicons name="volume-mute" size={20} color="white" style={{ opacity: 0.8 }} />
+          </Animated.View>
+          <View className="flex-1 flex-row  ">
+            <GestureHandlerRootView>
+              <Slider
+                progress={progress}
+                minimumValue={min}
+                maximumValue={max}
+                onValueChange={handleValueChange} 
+                theme={{
+                  disableMinTrackTintColor: "#fff",
+                  maximumTrackTintColor: "#fff",
+                  minimumTrackTintColor: "#000",
+                  cacheTrackTintColor: "#333",
+                  bubbleBackgroundColor: "#666",
+                  heartbeatColor: "#999",
+                }}
+                style={{ height: 7, borderRadius: 10 }}
+                onHapticFeedback={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }}
+                onSlidingStart={() => (scale.value = withSpring(1.2))}
+                onSlidingComplete={() => (scale.value = withSpring(1))}
+              />
+            </GestureHandlerRootView>
+          </View>
+          <Animated.View style={animatedStyleHigh}>
+            <Ionicons name="volume-high" size={20} color="white" style={{ opacity: 0.8 }} />
+          </Animated.View>
+        </Animated.View>
+      </Pressable>
+    </>
+  );
+}
+
+
+```
+
+## Explanation
+
+Building intuitive UI components like a volume slider can greatly enhance user experience. Here’s a quick guide on how to create a volume slider in React Native with haptic feedback using react-native-awesome-slider, react-native-reanimated, and expo-haptics.
+
+To create the slider, we’ll use the Slider component from react-native-awesome-slider and manage its progress using shared values from react-native-reanimated.
+```tsx
+<GestureHandlerRootView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Slider
+        progress={progress}
+        minimumValue={min}
+        maximumValue={max}
+        theme={{
+          disableMinTrackTintColor: "#fff",
+          maximumTrackTintColor: "#fff",
+          minimumTrackTintColor: "#000",
+          cacheTrackTintColor: "#333",
+          bubbleBackgroundColor: "#666",
+          heartbeatColor: "#999",
+        }}
+        style={{ height: 7, borderRadius: 10 }}
+        onHapticFeedback={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }}
+      />
+    </GestureHandlerRootView>
+```
+### Breaking Down the code
+
+**1. Shared Values for Slider Control:**
+`useSharedValue` from `react-native-reanimated` allows us to set reactive values for the slider’s progress (progress), minimum value (min), and maximum value (max).
+
+**2. Gesture Handling:**
+The `GestureHandlerRootView` from `react-native-gesture-handler` wraps the entire app to ensure gesture-based components like sliders work seamlessly.
+
+**	3. Slider Styling:**
+The theme prop lets us customize the slider’s colors, including:
+- `minimumTrackTintColor`: Color for the progress track.
+- `maximumTrackTintColor`: Color for the unprogressed track.
+- `bubbleBackgroundColor`: Background color of the value bubble (if visible)
+
+
+**4. Adding Haptic Feedback:**
+Using expo-haptics, we trigger a light vibration when the slider moves:
+
+```tsx
+onHapticFeedback={() => {
+  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+}}
+```
+
+Next, as you can see, we have added a micro-interaction to our volume bar. Whenever the slider is pressed, it scales from 1 to 1.2, providing a smoother, interactive feel. To achieve this, I used `react-native-reanimated` withSpring animation within `onPressIn` and `onPressOut` handlers. This ensures the slider scales up when pressed and returns to its original size upon release, creating an engaging user experience.
+
+Another subtle detail is when the volume bar pointer reaches the far left, the mute icon enlarges, and when it reaches the far right, the volume-high icon enlarges. To achieve this, we first track the progress value. A simple approach is to check if the value is 0 (far left) or 1 (far right), and adjust the icon scale accordingly. Here’s the code that handles this functionality:
+```tsx
+const handleValueChange = (value: number) => {
+  progress.value = value;
+
+  // Scale mute icon when at far left
+  if (value === 0) {
+    scaleMute.value = withSpring(1.3);
+  } else {
+    scaleMute.value = withSpring(1);
+  }
+
+  // Scale volume-high icon when at far right
+  if (value === 1) {
+    scaleHigh.value = withSpring(1.3);
+  } else {
+    scaleHigh.value = withSpring(1);
+  }
+};
+```
+This ensures smooth transitions for both icons, adding a polished touch to the volume bar’s micro-interactions
